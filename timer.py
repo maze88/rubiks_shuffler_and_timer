@@ -1,10 +1,25 @@
 #!/usr/bin/python3
 import time
+import sys
 
-def timeSolve(inspectionTime = 0):
-  if inspectionTime:
-    inspect(inspectionTime)
-  _ = input('\nPress ENTER to start solve timer (or `q` to exit)...')
+session_solves = []  # Initialize session results array.
+
+def inspectionTime(inspectionSeconds):
+  """Lets the user start a countdown for cube inspection time."""
+  _ = input('\nInspection time: {} seconds. Press ENTER to start inspection (or `q` to quit)!'.format(inspectionSeconds))
+  if _ == 'q':
+    exit()
+  while inspectionSeconds:
+    print(inspectionSeconds)
+    inspectionSeconds -= 1
+    time.sleep(1)
+  print('Inspection time over.')
+
+def timeSolve(inspectionSeconds):
+  """Lets the user start a timer for cube solving."""
+  if inspectionSeconds:
+    inspectionTime(inspectionSeconds)
+  _ = input('\nPress ENTER to start timer and solve (or `q` to quit)...')
   start_time = time.time()
   if _ == 'q':
     exit()
@@ -14,7 +29,13 @@ def timeSolve(inspectionTime = 0):
   solveTime = round(end_time - start_time, 4)
   return solveTime
 
+def saveSolveToSession(session, solveTime):
+  """Stores solve to session array as a tuple containing date/time and `solveTime`."""
+  solve = (time.ctime(), solveTime)
+  session.append(solve)
+
 def displaySessionSolves(sessionSolves):
+  """Prints the sessions solve times and average, tagging the best, worst and latest ones."""
   if len(sessionSolves):
     times = [solve[1] for solve in sessionSolves]
     best = min(times)
@@ -29,8 +50,8 @@ def displaySessionSolves(sessionSolves):
           tag += ' <- Best'
         if solve[1] == worst:
           tag += ' <- Worst'
-        if i + 1 == len(sessionSolves):
-          tag += ' <- Latest'
+        if i == len(sessionSolves) - 1:
+          tag += ' <- Last solve'
       print('  {}: {} seconds{}'.format(solve[0], solve[1], tag))
       total += solve[1]
     if len(sessionSolves) > 1:
@@ -38,24 +59,17 @@ def displaySessionSolves(sessionSolves):
       print('Average solve: {}'.format(average))
       print('------------------\n')
   else:
-    print('\nNo solves yet in session. Why not have a go?')
+    print('\nLets cube!')
 
-def saveSolveToSession(solve):
-  sessionSolves.append((time.ctime(), solve))
-
-def inspect(seconds):
-  input('\nInspection time: {} seconds. Press ENTER to start inspection!'.format(seconds))
-  while seconds:
-    print(seconds)
-    seconds -= 1
-
-sessionSolves = []
 
 def main():
+  inspection_seconds = 0
+  if len(sys.argv) > 1:
+    inspection_seconds = int(sys.argv[1])
   while True:
-    displaySessionSolves(sessionSolves)
-    solveTime = timeSolve()
-    saveSolveToSession(solveTime)
+    displaySessionSolves(session_solves)
+    solveTime = timeSolve(inspection_seconds)
+    saveSolveToSession(session_solves, solveTime)
 
 if __name__ == '__main__':
   main()
