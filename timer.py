@@ -4,7 +4,7 @@ import time
 def timeSolve(inspectionTime = 0):
   if inspectionTime:
     inspect(inspectionTime)
-  _ = input('\nPress ENTER to start solve timer... (or `q` to exit)')
+  _ = input('\nPress ENTER to start solve timer (or `q` to exit)...')
   start_time = time.time()
   if _ == 'q':
     exit()
@@ -31,7 +31,7 @@ def displaySessionSolves(sessionSolves):
           tag += ' <- Worst'
         if i + 1 == len(sessionSolves):
           tag += ' <- Latest'
-      print('  {}: {}s{}'.format(solve[0], solve[1], tag))
+      print('  {}: {} seconds{}'.format(solve[0], solve[1], tag))
       total += solve[1]
     if len(sessionSolves) > 1:
       average = round(total/len(times), 4)
@@ -44,7 +44,7 @@ def saveSolveToSession(solve):
   sessionSolves.append((time.ctime(), solve))
 
 def inspect(seconds):
-  input('\nInspection time: {} seconds. Press ENTER to start!'.format(seconds))
+  input('\nInspection time: {} seconds. Press ENTER to start inspection!'.format(seconds))
   while seconds:
     print(seconds)
     seconds -= 1
