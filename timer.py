@@ -58,26 +58,32 @@ def displaySessionSolves(sessionSolves):
     if len(sessionSolves) > 1:
       average = round(total/len(all_times), 4)
       print('Average solve: {}'.format(average))
-      print('------------------\n')
   else:
     print('\nLets cube!')
 
-def oneSessionSolve(sessionSolves, inspectionSeconds):
+def solveCycleUnit(sessionSolves, inspectionSeconds, shuffleMoveCount):
   displaySessionSolves(sessionSolves)
   solve_time = timeSolve(inspectionSeconds)
   saveSolveToSession(sessionSolves, solve_time)
+  #shuffle(shuffleMoveCount)  # TODO rename to main shuffle method from shuffle.py.
 
 
 """Main"""
-def main(inspectionSeconds):
+def main(inspectionSeconds, shuffleMoveCount):
   """Starts an eternal loop session for cube solvings."""
   session_solves = []
   while True:
-    aSolveForSession(session_solves, inspectionSeconds)
-    #shuffle(randMoves)  # TODO rename to main shuffle method from shuffle.py.
+    solveCycleUnit(session_solves, inspectionSeconds, shuffleMoveCount)
 
 if __name__ == '__main__':
   inspection_seconds = 0
-  if len(sys.argv) > 1:
-    inspection_seconds = abs(int(sys.argv[1]))
-  main(inspection_seconds)
+  shuffle_moves = 0
+  try:
+    if len(sys.argv) > 1:
+      inspection_seconds = abs(int(sys.argv[1]))
+    if len(sys.argv) > 2:
+      shuffle_moves = abs(int(sys.argv[2]))
+  except:
+    print('Usage: $./timer.py [seconds for inspection] [amount of shuffle moves]')
+    exit()
+  main(inspection_seconds, shuffle_moves)
