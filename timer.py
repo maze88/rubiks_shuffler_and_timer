@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import time
 import sys
+#from shuffle import *  # TODO uncomment when shuffle.py is in repo.
 
 def inspectionTime(inspectionSeconds):
   """Lets the user start a countdown for cube inspection time."""
@@ -35,9 +36,9 @@ def saveSolveToSession(session, solveTime):
 def displaySessionSolves(sessionSolves):
   """Prints the sessions solve times and average, tagging the best, worst and latest ones."""
   if len(sessionSolves):
-    times = [solve[1] for solve in sessionSolves]
-    best = min(times)
-    worst = max(times)
+    all_times = [solve[1] for solve in sessionSolves]
+    best = min(all_times)
+    worst = max(all_times)
     total = 0
     print('Session results')
     print('---------------')
@@ -55,11 +56,16 @@ def displaySessionSolves(sessionSolves):
       print('{} {}\t{} seconds{}'.format(index, solve[0], solve[1], tag))
       total += solve[1]
     if len(sessionSolves) > 1:
-      average = round(total/len(times), 4)
+      average = round(total/len(all_times), 4)
       print('Average solve: {}'.format(average))
       print('------------------\n')
   else:
     print('\nLets cube!')
+
+def oneSessionSolve(sessionSolves, inspectionSeconds):
+  displaySessionSolves(sessionSolves)
+  solve_time = timeSolve(inspectionSeconds)
+  saveSolveToSession(sessionSolves, solve_time)
 
 
 """Main"""
@@ -67,9 +73,8 @@ def main(inspectionSeconds):
   """Starts an eternal loop session for cube solvings."""
   session_solves = []
   while True:
-    displaySessionSolves(session_solves)
-    solve_time = timeSolve(inspectionSeconds)
-    saveSolveToSession(session_solves, solve_time)
+    aSolveForSession(session_solves, inspectionSeconds)
+    #shuffle(randMoves)  # TODO rename to main shuffle method from shuffle.py.
 
 if __name__ == '__main__':
   inspection_seconds = 0
