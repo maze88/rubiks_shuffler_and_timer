@@ -3,6 +3,12 @@ import time
 import sys
 #from shuffle import *  # TODO uncomment when shuffle.py is in repo.
 
+def printCube():
+  with open('cube.ascii', 'r') as f:
+    cube = f.readlines()
+    for line in cube:
+      print(line, end = '')
+
 def inspectionTime(inspectionSeconds):
   """Lets the user start a countdown for cube inspection time."""
   _ = input('\nInspection time: {} seconds. Press ENTER to start inspection (or `q` to quit)!'.format(inspectionSeconds))
@@ -24,7 +30,7 @@ def timeSolve(inspectionSeconds):
     exit()
   input('Started!\nTiming... Press ENTER to stop!')
   end_time = time.time()
-  print('Stopped.\n')
+  print('Stopped.\n\n')
   solveTime = round(end_time - start_time, 4)
   return solveTime
 
@@ -62,6 +68,7 @@ def displaySessionSolves(sessionSolves):
     print('\nLets cube!')
 
 def solveCycleUnit(sessionSolves, inspectionSeconds, shuffleMoveCount):
+  printCube()
   displaySessionSolves(sessionSolves)
   solve_time = timeSolve(inspectionSeconds)
   saveSolveToSession(sessionSolves, solve_time)
@@ -84,6 +91,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 2:
       shuffle_moves = abs(int(sys.argv[2]))
   except:
+    printCube()
     print('Usage: $./timer.py [seconds for inspection] [amount of shuffle moves]')
     exit()
   main(inspection_seconds, shuffle_moves)
