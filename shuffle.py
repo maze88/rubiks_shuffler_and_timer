@@ -7,8 +7,8 @@ faces = ('L', 'R', 'U', 'D', 'F', 'B')
 
 class Move:
   """A move in a Rubik's cube shuffle. Main properties are face, direction and amount of turns."""
-  def __init__(self, face = 'random', clockwiseTurns = 'random'):
-    # Init face
+  def __init__(self, face = 'random', cTurns = 'random'):
+    # Init face (char)
     if face == 'random':
       self.face = random.choice(faces)
     elif face in faces:
@@ -16,61 +16,53 @@ class Move:
     else:
       print('Illegal face chosen for Move object. Please use one from {}.'.format(faces))
       exit()
-    # Init turns
-    if clockwiseTurns == 'random':
-      self.turns = random.randint(1, 3)
+
+    # Init turns (integers)
+    if cTurns == 'random':
+      self.__clockwiseTurns = random.randint(1, 3)
     elif clockwiseTurns in (1, 2, 3):
-      self.turns = clockwiseTurns
+      self.__clockwiseTurns = cTurns
     else:
       print('Illegal clockwise turn count chosen for Move object. Please use 1, 2 or 3.')
       exit()
 
-  def face(self):
-    """Returns a single charactar, representing which face of the cube turns in move."""
-    return self.face
-
-  def direction(self):
-    """Returns an [empty] string with the move's direction.
-       Empty is clockwise, prime `'` is counter clockwise."""
-    if clockwiseTurns == 2:
-      return '\''
+    # Init direction (primality string)
+    if self.__clockwiseTurns == 3:
+      self.direction = '\''
     else:
-      return ''
+      self.direction = ''
 
-  def turns(self):
-    """Returns an integer of the amount of quarter turns in move."""
-    if clockwiseTurns == 2:
-      return clockwiseTurns
+    # Init turnsCount (integers)
+    if not self.__clockwiseTurns == 2:
+      self.turnsCount = 1
     else:
-      return 1
+      self.turnsCount = self.__clockwiseTurns
 
-  def isClockwise(self):
-    """Returns True/False regarding direction of move's turn."""
-    if direction(self):
-      return False
+    # Init isClockwise and isPrime (boolean)
+    if self.__clockwiseTurns == 3:
+      self.isClockwise = False
+      self.isPrime = True
     else:
-      return True
+      self.isClockwise = True
+      self.isPrime = False
 
-  def isCounterClockwise(self):
-    """Returns True/False regarding direction of move's turn."""
-    if direction(self):
-      return True
+    # Init halfTurn (char)
+    if self.__clockwiseTurns == 2:
+      self.halfTurn = '2'
     else:
-      return False
+      self.halfTurn = ''
 
-  def name(self):
-    """Returns a string of the move's cube notation, example `L'`."""
-    name = ''
-    name += '' # todo
-    return name
+    # Assemble the move's name in cube notation (examples: R', F2, U...).
+    self.cubeNotation = self.face + self.direction + self.halfTurn
 
 
 def main(n, spacing):
   print('Generating {} random moves...'.format(n))
-  for move in range(n):
-    if move % spacing == 0:
+  for m in range(n):
+    move = Move()
+    if m % spacing == 0:
       print('')  # add spacing.
-    print(randMove())
+    print(move.cubeNotation)
   print('') # trailing new line.
 
 if __name__ == '__main__':
