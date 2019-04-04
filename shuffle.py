@@ -55,19 +55,25 @@ class Move:
     # Assemble the move's name in cube notation (examples: R', F2, U...).
     self.cubeNotation = self.face + self.direction + self.halfTurn
 
+def movesCancelOut(moveA, moveB):
+  """If moveA can be combined with moveB returns True"""
+  pass
 
-def main(n, spacing):
-  print('Generating {} random moves...'.format(n))
-  for m in range(n):
+
+def main(moves = 32, spacing = 3):
+  print('Generating {} random moves...'.format(moves))
+
+  for i in range(moves):
+    if spacing and i % spacing == 0:
+        print('')
     move = Move()
-    if m % spacing == 0:
-      print('')  # add spacing.
     print(move.cubeNotation)
-  print('') # trailing new line.
+
+  print('') # Trailing blank line.
 
 if __name__ == '__main__':
-  moves = 25
-  space_frequency = 5
+  moves = 15
+  space_frequency = 3
   if len(sys.argv) > 1:
     moves = sys.argv[1]
     moves = abs(int(moves))
