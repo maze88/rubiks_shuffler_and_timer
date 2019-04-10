@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import time
 import sys
-#from shuffle import *  # TODO uncomment when shuffle.py is in repo.
+from shuffle import *
 
 def printCube():
   with open('cube.ascii', 'r') as f:
@@ -68,6 +68,7 @@ def displaySessionSolves(sessionSolves):
     print('\nLets cube!')
 
 def solveCycleUnit(sessionSolves, inspectionSeconds, shuffleMoveCount):
+  print('\n' * 20)
   printCube()
   displaySessionSolves(sessionSolves)
   solve_time = timeSolve(inspectionSeconds)
