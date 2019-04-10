@@ -55,31 +55,6 @@ class Move:
     # Assemble the move's name in cube notation (examples: R', F2, U...).
     self.cubeNotation = self.face + self.direction + self.halfTurn
 
-def combineOrCancelMoves(moveA, moveB):
-  """Returns a tuple containing a Boolean indicating if moveA combines or cancels out with moveB, and either a Move object if combinable, or an empty string."""
-  combineOrCancel = False
-  moveString = ''
-
-  if moveA.face == moveB.face:  # Rx Rx
-    newFace = moveA.face
-    if (moveA.direction != moveB.direction):  # R R'
-      combineOrCancel = True
-      if moveA.halfTurn or moveB.halfTurn:  # R2 R'
-        
-        newDirection = 
-      #if moveA.halfTurn and moveB.halfTurn:  # R R'  or  R2 R2  or  
-      return (combineOrCancel, moveString)
-    else:  # R2 R  or  R2 R'
-      
-
-      newFace = moveA.face
-      
-
-
-
-
-  return (combineOrCancel, moveString)
-
 
 def main(moves = 32, spacing = 3):
   print('Generating {} random moves...'.format(moves))
