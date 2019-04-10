@@ -56,23 +56,22 @@ class Move:
     self.cubeNotation = self.face + self.direction + self.halfTurn
 
 
-def main(moves = 32, spacing = 3):
-  print('Generating {} random moves...'.format(moves))
-
+def shuffle(moves = 32, spacing = 4):
+  print('\nGenerating {} random moves...'.format(moves))
   for i in range(moves):
-    if spacing and i % spacing == 0:
-        print('')
     move = Move()
-    print(move.cubeNotation)
+    print(move.cubeNotation, end = ' ')
+    if spacing and (i % spacing) == (spacing - 1):
+        print('\t', end = '')
 
   print('') # Trailing blank line.
 
 if __name__ == '__main__':
-  moves = 15
-  space_frequency = 3
+  moves = 32
+  space_frequency = 4
   if len(sys.argv) > 1:
     moves = sys.argv[1]
     moves = abs(int(moves))
   if len(sys.argv) > 2:
     space_frequency = abs(int(sys.argv[2]))
-  main(moves, space_frequency)
+  shuffle(moves, space_frequency)

@@ -68,12 +68,12 @@ def displaySessionSolves(sessionSolves):
     print('\nLets cube!')
 
 def solveCycleUnit(sessionSolves, inspectionSeconds, shuffleMoveCount):
-  print('\n' * 20)
+  #print('\n' * 20)
   printCube()
   displaySessionSolves(sessionSolves)
+  shuffle(shuffleMoveCount)
   solve_time = timeSolve(inspectionSeconds)
   saveSolveToSession(sessionSolves, solve_time)
-  #shuffle(shuffleMoveCount)  # TODO rename to main shuffle method from shuffle.py.
 
 
 """Main"""
