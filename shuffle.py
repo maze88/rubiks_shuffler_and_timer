@@ -2,7 +2,7 @@
 
 import random
 import sys
-from move_class import Move
+from move import Move
 
 def shuffle(moves = 32, spacing = 4):
   print('\nGenerating {} random moves...'.format(moves))
