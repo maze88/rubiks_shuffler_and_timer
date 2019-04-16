@@ -67,32 +67,35 @@ def displaySessionSolves(sessionSolves):
   else:
     print('\nLets cube!')
 
-def solveCycleUnit(sessionSolves, inspectionSeconds, shuffleMoveCount):
+def solveCycleUnit(sessionSolves, inspectionSeconds, shuffleMoveCount, shuffleMoveSpacing):
   #print('\n' * 20)
   printCube()
   displaySessionSolves(sessionSolves)
-  shuffle(shuffleMoveCount)
+  shuffle(shuffleMoveCount, shuffleMoveSpacing)
   solve_time = timeSolve(inspectionSeconds)
   saveSolveToSession(sessionSolves, solve_time)
 
 
 """Main"""
-def main(inspectionSeconds, shuffleMoveCount):
+def main(inspectionSeconds, shuffleMoveCount, shuffleMoveSpacing):
   """Starts an eternal loop session for cube solvings."""
   session_solves = []
   while True:
-    solveCycleUnit(session_solves, inspectionSeconds, shuffleMoveCount)
+    solveCycleUnit(session_solves, inspectionSeconds, shuffleMoveCount, shuffleMoveSpacing)
 
 if __name__ == '__main__':
   inspection_seconds = 0
-  shuffle_moves = 0
+  shuffle_moves = 24
+  shuffle_move_space_freq = 4
   try:
     if len(sys.argv) > 1:
       inspection_seconds = abs(int(sys.argv[1]))
     if len(sys.argv) > 2:
       shuffle_moves = abs(int(sys.argv[2]))
+    if len(sys.argv) > 3:
+      shuffle_move_space_freq = abs(int(sys.argv[3]))
   except:
     printCube()
-    print('Usage: $./timer.py [seconds for inspection] [amount of shuffle moves]')
+    print('Usage: $./timer.py [seconds for inspection] [amount of shuffle moves] [shuffle move space frequency]')
     exit()
-  main(inspection_seconds, shuffle_moves)
+  main(inspection_seconds, shuffle_moves, shuffle_move_space_freq)
