@@ -43,3 +43,20 @@ class Move:
     # Assemble the move's name in cube notation (examples: R', F2, U...).
     self.cubeNotation = self.name = self.face + self.direction + self.halfTurn
 
+    def cancelOut(self, moveB):
+    """"""
+      if self.face == moveB.face:
+        new_cTurns = self.cTurns + moveB.cTurns
+        if new_cTurns > 0:
+          pass
+
+        """
+        -1-1=-2
+        -1+1= 0
+        -1+2= 1
+         1+1= 2
+         1+2= 3
+         1-1= 0
+         """
+
+
