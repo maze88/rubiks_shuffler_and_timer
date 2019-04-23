@@ -5,6 +5,9 @@ clockwiseTurns = (-1, 1, 2)  # Negative means anti-clockwise.
 
 class Move:
   """A move on a Rubik's cube. Main properties are face and amount of clockwise turns (cTurns)."""
+  previousMove = 0
+  print('Debug: previousMove = {}'.format(previousMove))
+
   def __init__(self, inputFace = 0, inputTurns = 0):
     # Init face (char)
     if inputFace == 0:
@@ -43,20 +46,26 @@ class Move:
     # Assemble the move's name in cube notation (examples: R', F2, U...).
     self.cubeNotation = self.name = self.face + self.direction + self.halfTurn
 
-    def cancelOut(self, moveB):
-    """"""
+    def mergeMoves(self, moveB):
+    """Returns a tuple containing False, unless a previous move exists which cancels out with it, and itself or a new move (based on boolean result)."""
+      print('Debug: mergeMoves({}, {})'.format(self.cubeNotation, moveB.cubeNotation))
+      mergable = False
+      new_move = self
       if self.face == moveB.face:
+        mergable = True
+        new_face = self.face
         new_cTurns = self.cTurns + moveB.cTurns
-        if new_cTurns > 0:
-          pass
+        new_cTurns = abs(new_cTurns)
+        if new_cTurns > 2
+          new_cTurns = -1
+        new_move = Move(new_face, new_cTurns)
+        print('Debug: new_move = {}'.format(new_move.cubeNotation))
+      return (mergable, new_move)
 
-        """
-        -1-1=-2
-        -1+1= 0
-        -1+2= 1
-         1+1= 2
-         1+2= 3
-         1-1= 0
-         """
+  if previousMove:
+    (merged, new_move) = mergeMoves(self, previousMove)
+    
 
+  # For next move's instantiation.
+  previousMove = self
 
