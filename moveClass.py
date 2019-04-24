@@ -5,10 +5,10 @@ clockwiseTurns = (-1, 1, 2)  # Negative means anti-clockwise.
 
 class Move:
   """A move on a Rubik's cube. Main properties are face and amount of clockwise turns (cTurns)."""
-  __previousMove = 0
-  print('Debug: __previousMove = {}'.format(__previousMove))
+  previousMove = 0
 
   def __init__(self, inputFace = 0, inputTurns = 0):
+    print('Debug: previousMove = {}'.format(previousMove))
     # Init face (char)
     if inputFace == 0:
       self.face = random.choice(faces)
@@ -45,15 +45,20 @@ class Move:
 
     # Assemble the move's name in cube notation (examples: R', F2, U...).
     self.cubeNotation = self.name = self.face + self.direction + self.halfTurn
+    print('Debug: created self = {}'.format(self.cubeNotation))
 
-    if Move.__previousMove:
-      (merged, new_move) = mergeMoves(self, Move.__previousMove)
+    # Check if move can be merged with previous move, if True, edit current move.
+    if Move.previousMove:
+      (merged, new_move) = Move.mergeMoves(self, Move.previousMove)
+      if merged:
+        self = new_move
+      print('Debug: created new_move = {}'.format(new_move.cubeNotation))
 
     # For next move's instantiation.
-    __previousMove = self
+    Move.previousMove = self
 
   def mergeMoves(moveA, moveB):
-    """Returns a tuple containing False, unless a previous move exists which cancels out with it, and itmoveA or a new move (based on boolean result)."""
+    """Returns a tuple containing False, unless a previous move exists which cancels out with it, and moveA (or a new move if boolean element was True)."""
     print('Debug: mergeMoves({}, {})'.format(moveA.cubeNotation, moveB.cubeNotation))
     mergable = False
     new_move = moveA
@@ -62,9 +67,10 @@ class Move:
       new_face = moveA.face
       new_cTurns = moveA.cTurns + moveB.cTurns
       new_cTurns = abs(new_cTurns)
-      if new_cTurns > 2:
+      if new_cTurns == 3:
         new_cTurns = -1
+      if new_cTurns == 4:
+        new_cTurns = 0
       new_move = Move(new_face, new_cTurns)
       print('Debug: new_move = {}'.format(new_move.cubeNotation))
     return (mergable, new_move)
-
