@@ -8,7 +8,10 @@ class Move:
   previousMove = 0
 
   def __init__(self, inputFace = 0, inputTurns = 0):
-    print('Debug: previousMove = {}'.format(previousMove))
+    try:
+      print('Debug: previousMove = {}'.format(Move.previousMove.cubeNotation))
+    except:
+      pass
     # Init face (char)
     if inputFace == 0:
       self.face = random.choice(faces)
@@ -49,10 +52,10 @@ class Move:
 
     # Check if move can be merged with previous move, if True, edit current move.
     if Move.previousMove:
-      (merged, new_move) = Move.mergeMoves(self, Move.previousMove)
-      if merged:
+      (similar, new_move) = Move.mergeMoves(self, Move.previousMove)
+      if similar:
         self = new_move
-      print('Debug: created new_move = {}'.format(new_move.cubeNotation))
+        print('Debug: created new_move = {}'.format(new_move.cubeNotation))
 
     # For next move's instantiation.
     Move.previousMove = self
@@ -71,6 +74,6 @@ class Move:
         new_cTurns = -1
       if new_cTurns == 4:
         new_cTurns = 0
-      new_move = Move(new_face, new_cTurns)
+      new_move = Move()
       print('Debug: new_move = {}'.format(new_move.cubeNotation))
     return (mergable, new_move)
