@@ -41,5 +41,11 @@ class Move:
       self.isPrime = False
 
     # Assemble the move's name in cube notation (examples: R', F2, U...).
-    self.cubeNotation = self.name = self.face + self.direction + self.halfTurn
+    self.name = self.cubeNotation = self.face + self.direction + self.halfTurn
 
+  def isSimilarTo(self, otherMove):
+    """Returns a boolean stating the move is similar (can cancel out with) to otherMove."""
+    similar = False
+    if self.face == otherMove.face:
+      similar = True
+    return similar
