@@ -2,7 +2,7 @@
 
 import random
 import sys
-from moveClass import Move
+from move_class import Move
 
 def recycleIfSimilar(currentMove, previousMove):
   """If currentMove and previousMove are similar (can cancel out), it generates a new currentMove. Returns currentMove."""
