@@ -1,0 +1,1 @@
+This project is for people who like practicing solving Rubik's cubes, it allows the user to time their solves (while saving stats for the current session), and generates random move sequences in order to shuffle their cube.
