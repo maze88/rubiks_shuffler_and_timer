@@ -14,7 +14,7 @@ def recycle_if_similar(current_move, previous_move):
 
 def shuffle(moves=32, spacing=4):
     """Prints a line containing random cube moves (defaults to 32 of them), with spaces after each 4."""
-    previous_move = 0
+    previous_move = None
     print('\nGenerating {} random moves...'.format(moves))
     for i in range(moves):
         move = recycle_if_similar(Move(), previous_move)

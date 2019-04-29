@@ -9,9 +9,9 @@ CLOCKWISE_TURNS = (-1, 1, 2)  # Negative means anti-clockwise.
 
 class Move:
     """A move on a Rubik's cube. Main properties are face and amount of clockwise turns (clockwise_turns)."""
-    def __init__(self, input_face=0, input_turns=0):
+    def __init__(self, input_face=None, input_turns=None):
         # Init face (char)
-        if input_face == 0:
+        if not input_face:
             self.face = random.choice(FACES)
         elif input_face in FACES:
             self.face = input_face
@@ -20,7 +20,7 @@ class Move:
             exit()
 
         # Init clockwise_turns (integer)
-        if input_turns == 0:
+        if not input_turns:
             self.clockwise_turns = random.choice(CLOCKWISE_TURNS)
         elif input_turns in CLOCKWISE_TURNS:
             self.clockwise_turns = input_turns

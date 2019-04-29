@@ -70,13 +70,15 @@ def display_session_solves(session_solves):
     else:
         print('\nLets cube!')
 
-def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing):
+def solve_cycle_unit(session_solves=None, inspection_seconds=0, shuffle_move_count=32, shuffle_move_spacing=4):
     """Displays current session results and cube shuffling instructions, then times a solve."""
     ascii_cube()
-    display_session_solves(session_solves)
+    if session_solves:
+        display_session_solves(session_solves)
     shuffle(shuffle_move_count, shuffle_move_spacing)
     solve_time = time_solve(inspection_seconds)
-    save_solve_to_session(session_solves, solve_time)
+    if session_solves:
+        save_solve_to_session(session_solves, solve_time)
 
 
 def main(inspection_seconds, shuffle_move_count, shuffle_move_spacing):
@@ -87,7 +89,7 @@ def main(inspection_seconds, shuffle_move_count, shuffle_move_spacing):
 
 if __name__ == '__main__':
     INSPECTION_SECONDS = 0
-    SHUFFLE_MOVES = 24
+    SHUFFLE_MOVES = 32
     SHUFFLE_MOVE_SPACE_FREQ = 4
     try:
         if len(sys.argv) > 1:
