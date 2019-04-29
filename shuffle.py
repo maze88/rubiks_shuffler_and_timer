@@ -30,8 +30,8 @@ if __name__ == '__main__':
     SPACE_FREQUENCY = 4
     if len(sys.argv) > 1:
         try:
-            moves = sys.argv[1]
-            moves = abs(int(MOVES))
+            MOVES = sys.argv[1]
+            MOVES = abs(int(MOVES))
         except:
             print('Usage: $./shuffle.py [amount of shuffle moves] [frequency of spacing]')
             exit()

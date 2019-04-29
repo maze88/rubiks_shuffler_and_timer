@@ -5,7 +5,7 @@ import time
 import sys
 from shuffle import *
 
-def print_cube():
+def ascii_cube():
     """Prints ascii art of a Rubik's cube."""
     with open('cube.ascii', 'r') as f:
         ascii_cube = f.readlines()
@@ -72,7 +72,7 @@ def display_session_solves(session_solves):
 
 def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing):
     """Displays current session results and cube shuffling instructions, then times a solve."""
-    print_cube()
+    ascii_cube()
     display_session_solves(session_solves)
     shuffle(shuffle_move_count, shuffle_move_spacing)
     solve_time = time_solve(inspection_seconds)
@@ -97,7 +97,7 @@ if __name__ == '__main__':
                 if len(sys.argv) > 3:
                     SHUFFLE_MOVE_SPACE_FREQ = abs(int(sys.argv[3]))
     except:
-        print_cube()
+        ascii_cube()
         print('Usage: $./timer.py [seconds for inspection] [amount of shuffle moves] [shuffle move space frequency]')
         exit()
     main(INSPECTION_SECONDS, SHUFFLE_MOVES, SHUFFLE_MOVE_SPACE_FREQ)
