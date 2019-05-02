@@ -70,11 +70,20 @@ def display_session_solves(session_solves):
     else:
         print('\nLets cube!')
 
-def solve_cycle_unit(session_solves=None, inspection_seconds=0, shuffle_move_count=32, shuffle_move_spacing=4):
+def display_last_5_running_average(session_solves):
+    """Prints the running average (not including best & worst) of the last 5 solves."""
+    if len(session_solves) >= 5:
+        last_5 = [solve[1] for solve in session_solves[-5:]]
+        last_5.remove(min(last_5))
+        last_5.remove(max(last_5))
+        running_average = round(sum(last_5)/len(last_5), 4)
+        print('Running average (not including best & worst) of last 5 solves: {}'.format(running_average))
+
+def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing):
     """Displays current session results and cube shuffling instructions, then times a solve."""
     ascii_cube()
-    if session_solves:
-        display_session_solves(session_solves)
+    display_session_solves(session_solves)
+    display_last_5_running_average(session_solves)
     shuffle(shuffle_move_count, shuffle_move_spacing)
     solve_time = time_solve(inspection_seconds)
     if session_solves:
