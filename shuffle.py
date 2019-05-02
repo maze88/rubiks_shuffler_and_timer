@@ -13,17 +13,23 @@ def recycle_if_similar(current_move, previous_move):
     return current_move
 
 def shuffle(moves=32, spacing=4):
-    """Prints a line containing random cube moves (defaults to 32 of them), with spaces after each 4."""
+    """Prints a line containing random cube moves (defaults to 32 of them), with spaces after each 4.
+    Returns an array of class Move objects."""
+    shuffle_sequence = []
     previous_move = None
+
     print('\nGenerating {} random moves...'.format(moves))
     for i in range(moves):
         move = recycle_if_similar(Move(), previous_move)
+        shuffle_sequence.append(move)
         previous_move = move
         print(move.cube_notation, end = ' ')
         if spacing and (i % spacing) == (spacing - 1):
             print('\t', end = '')
 
     print('') # Trailing blank line.
+
+    return suhffle_sequence
 
 if __name__ == '__main__':
     MOVES = 32
