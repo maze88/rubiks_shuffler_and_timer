@@ -1,6 +1,6 @@
 """This module contains the class Move, for creating Rubik's cube moves.
-For an explanation of Rubik's cube notation checkout the following article in the Twisty puzzle wiki:
-https://ruwix.com/the-rubiks-cube/notation/
+For an explanation of Rubik's cube notation checkout the following article
+in the Twisty puzzle wiki: https://ruwix.com/the-rubiks-cube/notation/
 """
 import random
 
@@ -8,7 +8,7 @@ FACES = ('L', 'R', 'U', 'D', 'F', 'B')
 CLOCKWISE_TURNS = (-1, 1, 2)  # Negative means anti-clockwise.
 
 class Move:
-    """A move on a Rubik's cube. Main properties are face and amount of clockwise turns (clockwise_turns)."""
+    """A move on a Rubik's cube. Main properties are face and amount of clockwise turns."""
     def __init__(self, input_face=None, input_turns=None):
         # Init face (char)
         if not input_face:
