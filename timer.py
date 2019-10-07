@@ -14,7 +14,7 @@ def ascii_cube():
 
 def inspection_time(inspection_seconds):
     """Lets the user start a countdown for cube inspection time."""
-    _ = input('\n---\nInspection time: {} seconds. Press ENTER to start inspection (or `q` to quit)!'.format(inspection_seconds))
+    _ = input('---\nInspection time: {} seconds. Press ENTER to start inspection (or `q` to quit)!'.format(inspection_seconds))
     if _ == 'q':
         exit()
     while inspection_seconds:
@@ -27,14 +27,15 @@ def time_solve(inspection_seconds):
     """Lets the user start a timer for cube solving."""
     if inspection_seconds:
         inspection_time(inspection_seconds)
-    _ = input('\n---\nPress ENTER to start timer and solve (or `q` to quit)...')
+    _ = input('---\nPress ENTER to start timer and solve (or `q` to quit)...')
     start_time = time.time()
     if _ == 'q':
         exit()
     input('Started!\nTiming... Press ENTER to stop!')
     end_time = time.time()
-    print('Stopped.\n')
     solve_time = round(end_time - start_time, 3)
+    print('Stopped.')
+    print('Solve time: {}'.format(solve_time))
     return solve_time
 
 def save_solve_to_session(solve_time, session):
@@ -49,8 +50,7 @@ def display_session_solves(session_solves):
         best = min(all_times)
         worst = max(all_times)
         total = 0
-        print('Session results')
-        print('---------------')
+        print('---\nSession results:')
         for i, solve in enumerate(session_solves):
             index = '  '
             tag = ''
@@ -67,8 +67,6 @@ def display_session_solves(session_solves):
         if len(session_solves) > 1:
             average = round(total/len(all_times), 3)
             print('Average solve: {}'.format(average))
-    else:
-        print('\nLets cube!')
 
 def display_last_5_running_average(session_solves):
     """Prints the running average (not including best & worst) of the last 5 solves."""
@@ -81,25 +79,27 @@ def display_last_5_running_average(session_solves):
 
 def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing):
     """Displays current session results and cube shuffling instructions, then times a solve."""
-    ascii_cube()
-    display_session_solves(session_solves)
-    display_last_5_running_average(session_solves)
+    #ascii_cube()
+    if session_solves:
+        display_session_solves(session_solves)
+        display_last_5_running_average(session_solves)
     shuffle(shuffle_move_count, shuffle_move_spacing)
     solve_time = time_solve(inspection_seconds)
-    if session_solves:
-        save_solve_to_session(solve_time, session_solves)
+    save_solve_to_session(solve_time, session_solves)
 
 
 def main(inspection_seconds, shuffle_move_count, shuffle_move_spacing):
-    """Starts an eternal loop session for cube solvings."""
+    """Starts a session with an eternal loop of cube solvings."""
+    print('Lets cube!')
+    ascii_cube()
     session_solves = []
     while True:
         solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing)
 
 if __name__ == '__main__':
     INSPECTION_SECONDS = 0
-    SHUFFLE_MOVES = 32
-    SHUFFLE_MOVE_SPACE_FREQ = 4
+    SHUFFLE_MOVES = 30
+    SHUFFLE_MOVE_SPACE_FREQ = 10
     try:
         if len(sys.argv) > 1:
             INSPECTION_SECONDS = abs(int(sys.argv[1]))

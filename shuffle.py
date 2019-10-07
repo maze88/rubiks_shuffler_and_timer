@@ -18,7 +18,7 @@ def shuffle(moves=32, spacing=4):
     shuffle_sequence = []
     previous_move = None
 
-    print('\n---\nGenerating {} random moves...'.format(moves))
+    print('---\nGenerating {} random moves...'.format(moves))
     for i in range(moves):
         move = recycle_if_similar(Move(), previous_move)
         shuffle_sequence.append(move)
