@@ -18,7 +18,7 @@ def shuffle(moves=32, spacing=4):
     shuffle_sequence = []
     previous_move = None
 
-    print('\nGenerating {} random moves...'.format(moves))
+    print('\n---\nGenerating {} random moves...'.format(moves))
     for i in range(moves):
         move = recycle_if_similar(Move(), previous_move)
         shuffle_sequence.append(move)
@@ -29,11 +29,11 @@ def shuffle(moves=32, spacing=4):
 
     print('') # Trailing blank line.
 
-    return suhffle_sequence
+    return shuffle_sequence
 
 if __name__ == '__main__':
-    MOVES = 32
-    SPACE_FREQUENCY = 4
+    MOVES = 30
+    SPACE_FREQUENCY = 10
     if len(sys.argv) > 1:
         try:
             MOVES = sys.argv[1]

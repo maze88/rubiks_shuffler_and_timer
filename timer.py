@@ -14,7 +14,7 @@ def ascii_cube():
 
 def inspection_time(inspection_seconds):
     """Lets the user start a countdown for cube inspection time."""
-    _ = input('\nInspection time: {} seconds. Press ENTER to start inspection (or `q` to quit)!'.format(inspection_seconds))
+    _ = input('\n---\nInspection time: {} seconds. Press ENTER to start inspection (or `q` to quit)!'.format(inspection_seconds))
     if _ == 'q':
         exit()
     while inspection_seconds:
@@ -27,17 +27,17 @@ def time_solve(inspection_seconds):
     """Lets the user start a timer for cube solving."""
     if inspection_seconds:
         inspection_time(inspection_seconds)
-    _ = input('\nPress ENTER to start timer and solve (or `q` to quit)...')
+    _ = input('\n---\nPress ENTER to start timer and solve (or `q` to quit)...')
     start_time = time.time()
     if _ == 'q':
         exit()
     input('Started!\nTiming... Press ENTER to stop!')
     end_time = time.time()
-    print('Stopped.\n\n')
-    solve_time = round(end_time - start_time, 4)
+    print('Stopped.\n')
+    solve_time = round(end_time - start_time, 3)
     return solve_time
 
-def save_solve_to_session(session, solve_time):
+def save_solve_to_session(solve_time, session):
     """Stores solve to session array as a tuple containing date/time and `solve_time`."""
     solve = (time.ctime(), solve_time)
     session.append(solve)
@@ -65,7 +65,7 @@ def display_session_solves(session_solves):
             print('{} {}\t{} seconds{}'.format(index, solve[0], solve[1], tag))
             total += solve[1]
         if len(session_solves) > 1:
-            average = round(total/len(all_times), 4)
+            average = round(total/len(all_times), 3)
             print('Average solve: {}'.format(average))
     else:
         print('\nLets cube!')
@@ -87,7 +87,7 @@ def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shu
     shuffle(shuffle_move_count, shuffle_move_spacing)
     solve_time = time_solve(inspection_seconds)
     if session_solves:
-        save_solve_to_session(session_solves, solve_time)
+        save_solve_to_session(solve_time, session_solves)
 
 
 def main(inspection_seconds, shuffle_move_count, shuffle_move_spacing):
