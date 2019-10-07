@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-"""This is the main module for the Rubik's shuffler and timer project. It calls directly or indirectly all other modules."""
+"""This is the main module for the Rubik's shuffler and timer project.
+It calls directly or indirectly all other modules."""
 
 import time
 import sys
 from shuffle import *
 
-def ascii_cube():
+def print_ascii_cube():
     """Prints ascii art of a Rubik's cube."""
-    with open('cube.ascii', 'r') as f:
-        ascii_cube = f.readlines()
+    with open('cube.ascii', 'r') as _:
+        ascii_cube = _.readlines()
         for line in ascii_cube:
-            print(line, end = '')
+            print(line, end='')
 
 def inspection_time(inspection_seconds):
     """Lets the user start a countdown for cube inspection time."""
@@ -79,7 +80,7 @@ def display_last_5_running_average(session_solves):
 
 def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing):
     """Displays current session results and cube shuffling instructions, then times a solve."""
-    #ascii_cube()
+    #print_ascii_cube()
     if session_solves:
         display_session_solves(session_solves)
         display_last_5_running_average(session_solves)
@@ -91,7 +92,7 @@ def solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shu
 def main(inspection_seconds, shuffle_move_count, shuffle_move_spacing):
     """Starts a session with an eternal loop of cube solvings."""
     print('Lets cube!')
-    ascii_cube()
+    print_ascii_cube()
     session_solves = []
     while True:
         solve_cycle_unit(session_solves, inspection_seconds, shuffle_move_count, shuffle_move_spacing)
@@ -108,7 +109,7 @@ if __name__ == '__main__':
                 if len(sys.argv) > 3:
                     SHUFFLE_MOVE_SPACE_FREQ = abs(int(sys.argv[3]))
     except:
-        ascii_cube()
+        print_ascii_cube()
         print('Usage: $./timer.py [seconds for inspection] [amount of shuffle moves] [shuffle move space frequency]')
         exit()
     main(INSPECTION_SECONDS, SHUFFLE_MOVES, SHUFFLE_MOVE_SPACE_FREQ)
