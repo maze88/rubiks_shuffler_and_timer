@@ -28,9 +28,6 @@ class Move:
             print('Illegal clockwise turn count chosen for Move object. Please use one from {}.'.format(CLOCKWISE_TURNS))
             exit()
 
-        # Init turns_count (integers)
-        #self.turns_count = abs(self.clockwise_turns)  # Unused attribute, can remove?
-
         # Init direction (string), is_clockwise & is_prime (booleans) and half_turn (string)
         self.half_turn = ''
         if self.clockwise_turns == -1:
